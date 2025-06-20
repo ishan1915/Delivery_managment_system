@@ -9,7 +9,7 @@ class User(AbstractUser):
         ('porter', 'Porter'),
     )
     role = models.CharField(max_length=20, choices=ROLE_CHOICES)
-    def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs):                             #for creating   hashed password when user created from admin panel
         # If setting a raw password manually, hash it
         if self.pk is None:  # When creating a new user
             self.set_password(self.password)
@@ -18,3 +18,37 @@ class User(AbstractUser):
             if old and old.password != self.password:
                 self.set_password(self.password)
         super().save(*args, **kwargs)
+
+
+class Customer(models.Model):
+    user=models.OneToOneField(User,on_delete=models.CASCADE)    
+    address=models.TextField()
+    phone=models.CharField(max_length=10)
+    city=models.CharField(max_length=100)
+    pincode=models.CharField(max_length=10)   
+
+class WarehouseManager(models.Model):
+    user=models.OneToOneField(User,on_delete=models.CASCADE)
+    warehouse_name=models.CharField(max_length=255)
+    location=models.CharField(max_length=255)
+
+class CityManager(models.Model):
+    user=models.OneToOneField(User,on_delete=models.CASCADE)
+    city=models.CharField(max_length=100)
+
+
+class Porter(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    assigned_area = models.CharField(max_length=10)
+
+class Order(models.Model):
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    product_name = models.CharField(max_length=255)
+    description = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    warehouse_manager = models.ForeignKey(WarehouseManager, on_delete=models.SET_NULL, null=True, blank=True)
+    city_manager = models.ForeignKey(CityManager, on_delete=models.SET_NULL, null=True, blank=True)
+    porter = models.ForeignKey(Porter, on_delete=models.SET_NULL, null=True, blank=True)
+
+    is_delivered = models.BooleanField(default=False)            
