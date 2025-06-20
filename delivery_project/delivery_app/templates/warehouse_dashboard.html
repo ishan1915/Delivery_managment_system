@@ -1,0 +1,23 @@
+<h2>Warehouse Dashboard</h2>
+{% for order in orders %}
+  <p><b>{{ order.product_name }}</b></p>
+  <p>Status: 
+    {% if not order.is_packed %}
+      ❌ Not Packed
+      <form method="post" action="{% url 'mark_packed' order.id %}">{% csrf_token %}
+        <button type="submit">Mark as Packed</button>
+      </form>
+    {% elif not order.is_shipped %}
+      ✅ Packed<br>
+      ❌ Not Shipped
+      <form method="post" action="{% url 'mark_shipped' order.id %}">{% csrf_token %}
+        <button type="submit">Mark as Shipped</button>
+      </form>
+    {% else %}
+      ✅ Packed & Shipped
+    {% endif %}
+  </p>
+  <hr>
+{% empty %}
+  <p>No assigned orders.</p>
+{% endfor %}

@@ -27,19 +27,37 @@ class Customer(models.Model):
     city=models.CharField(max_length=100)
     pincode=models.CharField(max_length=10)   
 
+
+    def __str__(self):
+        return f"{self.user} {self.address}"
+
+    
+
 class WarehouseManager(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
     warehouse_name=models.CharField(max_length=255)
     location=models.CharField(max_length=255)
+
+
+    def __str__(self):
+        return f"{self.user} {self.location}"
 
 class CityManager(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
     city=models.CharField(max_length=100)
 
 
+    def __str__(self):
+        return f"{self.user} {self.city}"
+
+
 class Porter(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     assigned_area = models.CharField(max_length=10)
+
+
+    def __str__(self):
+        return f"{self.user} {self.assigned_area}"
 
 class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
@@ -51,4 +69,13 @@ class Order(models.Model):
     city_manager = models.ForeignKey(CityManager, on_delete=models.SET_NULL, null=True, blank=True)
     porter = models.ForeignKey(Porter, on_delete=models.SET_NULL, null=True, blank=True)
 
+    is_packed = models.BooleanField(default=False)
+    is_shipped = models.BooleanField(default=False)
+    received_at_city = models.BooleanField(default=False)
+    out_for_delivery = models.BooleanField(default=False)
+
     is_delivered = models.BooleanField(default=False)            
+
+
+    def __str__(self):
+        return f"{self.customer} "

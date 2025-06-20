@@ -1,0 +1,18 @@
+<h2>Porter Dashboard</h2>
+{% for order in orders %}
+  <p><b>{{ order.product_name }}</b></p>
+  <p>Status:
+    {% if order.received_at_city and not order.out_for_delivery %}
+      <form method="post" action="{% url 'mark_out_for_delivery' order.id %}">{% csrf_token %}
+        <button type="submit">Mark as Going for Delivery</button>
+      </form>
+    {% elif order.out_for_delivery %}
+      ✅ Out for Delivery
+    {% else %}
+      ⏳ Waiting from City Office
+    {% endif %}
+  </p>
+  <hr>
+{% empty %}
+  <p>No assigned orders.</p>
+{% endfor %}

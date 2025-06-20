@@ -1,0 +1,18 @@
+<h2>City Manager Dashboard</h2>
+{% for order in orders %}
+  <p><b>{{ order.product_name }}</b></p>
+  <p>Status: 
+    {% if order.is_shipped and not order.received_at_city %}
+      <form method="post" action="{% url 'mark_received_city' order.id %}">{% csrf_token %}
+        <button type="submit">Mark as Received at City Office</button>
+      </form>
+    {% elif order.received_at_city %}
+      ✅ Received at City Office
+    {% else %}
+      ⏳ Waiting for shipment
+    {% endif %}
+  </p>
+  <hr>
+{% empty %}
+  <p>No assigned orders.</p>
+{% endfor %}

@@ -1,0 +1,39 @@
+<h2>Customer Dashboard</h2>
+<a href="{% url 'create_order' %}">Create New Order</a>
+
+<h3>Your Orders</h3>
+{% for order in orders %}
+  <div style="border: 1px solid #aaa; padding: 10px; margin-bottom: 10px;">
+    <p><strong>Product:</strong> {{ order.product_name }}</p>
+    <p><strong>Description:</strong> {{ order.description }}</p>
+    <p><strong>Created At:</strong> {{ order.created_at }}</p>
+
+    <h4>Delivery Status:</h4>
+    <ul>
+      <li>📦 Packed: 
+        {% if order.is_packed %}✅{% else %}❌{% endif %}
+      </li>
+      <li>🚚 Shipped: 
+        {% if order.is_shipped %}✅{% else %}❌{% endif %}
+      </li>
+      <li>🏢 Received at City Office: 
+        {% if order.received_at_city %}✅{% else %}❌{% endif %}
+      </li>
+      <li>🚴 Out for Delivery: 
+        {% if order.out_for_delivery %}✅{% else %}❌{% endif %}
+      </li>
+      <li>📬 Delivered: 
+        {% if order.is_delivered %}✅{% else %}❌{% endif %}
+      </li>
+    </ul>
+
+    {% if not order.is_delivered %}
+      <form method="post" action="{% url 'mark_order_delivered' order.id %}">
+        {% csrf_token %}
+        <button type="submit">Mark as Delivered</button>
+      </form>
+    {% endif %}
+  </div>
+{% empty %}
+  <p>You have no orders yet.</p>
+{% endfor %}
