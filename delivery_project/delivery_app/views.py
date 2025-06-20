@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect,get_object_or_404
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login,logout
 from .models import *
 from .forms import *
 from django.views.decorators.http import require_POST
@@ -19,7 +19,9 @@ def user_login(request):
             error = "Invalid credentials"
     return render(request, 'login.html', {'error': error})
 
-
+def custom_logout(request):
+    logout(request)
+    return redirect('login')
 
 
 def signup_customer(request):
