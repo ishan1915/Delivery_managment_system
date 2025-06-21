@@ -38,6 +38,11 @@ def customer_dashboard(request):
     orders=Order.objects.filter(customer=request.user.customer)
     return render(request,'customer_dashboard.html',{'orders':orders})
 
+@login_required
+def customer_history(request):
+    #customer = request.user.customer
+    orders = Order.objects.filter(customer=request.user.customer, is_delivered=True).order_by('-created_at')
+    return render(request, 'customer_history.html', {'orders': orders})
 
 @login_required 
 def mark_order_delivered(request,order_id):

@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Order History</title>
+  <link rel="stylesheet" href="{% static 'css/customer_dashboard.css' %}">
+</head>
+<body>
+
+  <h2>Order History</h2>
+  <a href="{% url 'customer_dashboard' %}" class="button">Back to Dashboard</a>
+  <a href="{% url 'logout' %}" class="button" style="background-color:red;">Logout</a>
+
+  {% if orders %}
+    {% for order in orders %}
+      <div class="order-card">
+        <p><strong>Product:</strong> {{ order.product_name }}</p>
+        <p><strong>Description:</strong> {{ order.description }}</p>
+        <p><strong>Created At:</strong> {{ order.created_at }}</p>
+        <p><strong>Delivered On:</strong> {{ order.updated_at|default:order.created_at }}</p>
+
+        <div class="progress-container">
+          <div class="progress-step completed">
+            <span>1</span>
+            <label>Packed</label>
+          </div>
+          <div class="progress-step completed">
+            <span>2</span>
+            <label>Shipped</label>
+          </div>
+          <div class="progress-step completed">
+            <span>3</span>
+            <label>City Received</label>
+          </div>
+          <div class="progress-step completed">
+            <span>4</span>
+            <label>Out for Delivery</label>
+          </div>
+          <div class="progress-step completed">
+            <span>5</span>
+            <label>Delivered</label>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>No delivered orders yet.</p>
+  {% endif %}
+
+</body>
+</html>
