@@ -1,7 +1,5 @@
-# Delivery_managment_system
-
-Here’s a detailed and professional `README.md` file for your **Delivery Management System** project, covering all the features from your `views.py` and extended system design.
-
+ 
+ 
 ---
 
 ## 📦 Delivery Management System - Django Based
