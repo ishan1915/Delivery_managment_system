@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'delivery_app',
+    'rolepermissions',
+
 ]
 
 MIDDLEWARE = [
@@ -124,3 +126,6 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL='delivery_app.User'
+
+
+ROLEPERMISSIONS_MODULE = 'delivery_app.roles' #for assigning user thier roles

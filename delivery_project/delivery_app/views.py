@@ -3,8 +3,9 @@ from django.contrib.auth import authenticate, login,logout
 from .models import *
 from .forms import *
 from django.views.decorators.http import require_POST
-
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseForbidden
+from rolepermissions.checkers import has_permission
 
 def user_login(request):
     error = ''
@@ -87,6 +88,8 @@ def porter_dashboard(request):
 # Warehouse Manager updates
 @require_POST
 def mark_packed(request, order_id):
+    if not has_permission(request.user, 'mark_packed'):
+        return HttpResponseForbidden("Not allowed")
     order = get_object_or_404(Order, id=order_id, warehouse_manager=request.user.warehousemanager)
     order.is_packed = True
     order.save()

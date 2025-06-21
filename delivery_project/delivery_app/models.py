@@ -79,3 +79,12 @@ class Order(models.Model):
 
     def __str__(self):
         return f"{self.customer} "
+    
+
+
+class DeliveryArea(models.Model):
+    pincode = models.CharField(max_length=6)
+    porter = models.ForeignKey(Porter, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.pincode} - {self.porter.user.username}"    
