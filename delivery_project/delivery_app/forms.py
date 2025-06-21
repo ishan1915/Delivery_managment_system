@@ -30,7 +30,7 @@ class CustomerSignUpForm(forms.ModelForm):
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
-        fields = ['product_name', 'description']
+        fields = ['product_name', 'description','price']
 
 
  

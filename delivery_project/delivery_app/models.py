@@ -64,6 +64,7 @@ class Order(models.Model):
     product_name = models.CharField(max_length=255)
     description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+    price=models.IntegerField()
 
     warehouse_manager = models.ForeignKey(WarehouseManager, on_delete=models.SET_NULL, null=True, blank=True)
     city_manager = models.ForeignKey(CityManager, on_delete=models.SET_NULL, null=True, blank=True)
