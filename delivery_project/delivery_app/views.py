@@ -39,14 +39,50 @@ def signup_customer(request):
 
 @login_required
 def customer_dashboard(request):
-    orders=Order.objects.filter(customer=request.user.customer)
-    return render(request,'customer_dashboard.html',{'orders':orders})
+    try:
+        customer_detail = Customer.objects.get(user=request.user)
+        orders = Order.objects.filter(customer=customer_detail).order_by('-created_at')
+    except Customer.DoesNotExist:
+        customer_detail = None
+        orders = []
+
+    return render(request, 'customer_dashboard.html', {
+        'customer_detail': customer_detail,
+        'orders': orders,
+    })
+
+
+
+
+@login_required
+def edit_customer_profile(request):
+    try:
+        customer = Customer.objects.get(user=request.user)
+    except Customer.DoesNotExist:
+        return redirect('customer_dashboard')
+
+    if request.method == 'POST':
+        form = CustomerProfileForm(request.POST, instance=customer)
+        if form.is_valid():
+            form.save()
+            return redirect('customer_dashboard')
+    else:
+        form = CustomerProfileForm(instance=customer)
+
+    return render(request, 'edit_profile.html', {'form': form})
+
+
 
 @login_required
 def customer_history(request):
     #customer = request.user.customer
     orders = Order.objects.filter(customer=request.user.customer, is_delivered=True).order_by('-created_at')
     return render(request, 'customer_history.html', {'orders': orders})
+
+
+
+ 
+    
 
 @login_required 
 def mark_order_delivered(request,order_id):
@@ -133,3 +169,5 @@ def generate_invoice(request, order_id):
     response = HttpResponse(pdf, content_type='application/pdf')
     response['Content-Disposition'] = f'inline; filename=invoice_order_{order.id}.pdf'
     return response
+
+

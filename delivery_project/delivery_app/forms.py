@@ -31,3 +31,17 @@ class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
         fields = ['product_name', 'description']
+
+
+ 
+
+class CustomerProfileForm(forms.ModelForm):
+    class Meta:
+        model = Customer
+        fields = ['address', 'phone', 'city', 'pincode']
+        widgets = {
+            'address': forms.Textarea(attrs={'rows': 2}),
+            'phone': forms.TextInput(attrs={'placeholder': '10-digit phone'}),
+            'city': forms.TextInput(),
+            'pincode': forms.TextInput(),
+        }

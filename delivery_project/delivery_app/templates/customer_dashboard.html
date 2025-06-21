@@ -1,22 +1,43 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Customer Dashboard</title>
-   <link rel="stylesheet" href="{% static 'css/customer_dashboard.css' %}">
+  <link rel="stylesheet" href="{% static 'css/customer_dashboard.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 </head>
 <body>
 
+<div class="navbar">
+  <div class="navbar-brand">🚚 Delivery Dashboard</div>
+  <div class="navbar-links">
+    <a href="{% url 'create_order' %}">➕ Create Order</a>
+    <a href="{% url 'customer_history' %}">📜 History</a>
+    <a href="{% url 'edit_customer_profile' %}">✏️ Edit Profile</a>
+    <a href="{% url 'logout' %}" class="logout-link">🔒 Logout</a>
+  </div>
+</div>
+  
+
   <h2>Customer Dashboard</h2>
-  <a href="{% url 'create_order' %}" class="button">Create New Order</a>
-  <a href="{% url 'customer_history' %}" class="button"  >History</a>
-  <a href="{% url 'logout' %}" class="button"  >Logout</a>
 
+   
 
-
+  {% if customer_detail %}
+    <div class="customer-info">
+      <h3>👤 Your Details</h3>
+      <p><strong>Name:</strong> {{ customer_detail.user.username }}</p>
+      <p><strong>Email:</strong> {{ customer_detail.user.email }}</p>
+      <p><strong>Phone:</strong> {{ customer_detail.phone }}</p>
+      <p><strong>Address:</strong> {{ customer_detail.address }}</p>
+      <p><strong>City:</strong> {{ customer_detail.city }}</p>
+      <p><strong>Pincode:</strong> {{ customer_detail.pincode }}</p>
+      <a href="{% url 'edit_customer_profile'%}" class="button"> <i class="fas fa-user-edit"></i> Edit Profile</a>
+    </div>
+  {% endif %}
+ 
   <h3>Your Orders</h3>
   {% for order in orders %}
     <div class="order-card">
@@ -35,32 +56,17 @@
 
       <h4>Progress:</h4>
       <div class="progress-container">
-        <div class="progress-step {% if order.is_packed %}completed{% endif %}">
-          <span>1</span>
-          <label>Packed</label>
-        </div>
-        <div class="progress-step {% if order.is_shipped %}completed{% endif %}">
-          <span>2</span>
-          <label>Shipped</label>
-        </div>
-        <div class="progress-step {% if order.received_at_city %}completed{% endif %}">
-          <span>3</span>
-          <label>City Received</label>
-        </div>
-        <div class="progress-step {% if order.out_for_delivery %}completed{% endif %}">
-          <span>4</span>
-          <label>Out for Delivery</label>
-        </div>
-        <div class="progress-step {% if order.is_delivered %}completed{% endif %}">
-          <span>5</span>
-          <label>Delivered</label>
-        </div>
+        <div class="progress-step {% if order.is_packed %}completed{% endif %}"><span>1</span><label>Packed</label></div>
+        <div class="progress-step {% if order.is_shipped %}completed{% endif %}"><span>2</span><label>Shipped</label></div>
+        <div class="progress-step {% if order.received_at_city %}completed{% endif %}"><span>3</span><label>City Received</label></div>
+        <div class="progress-step {% if order.out_for_delivery %}completed{% endif %}"><span>4</span><label>Out for Delivery</label></div>
+        <div class="progress-step {% if order.is_delivered %}completed{% endif %}"><span>5</span><label>Delivered</label></div>
       </div>
 
       {% if not order.is_delivered %}
         <form method="post" action="{% url 'mark_order_delivered' order.id %}">
           {% csrf_token %}
-          <button type="submit" style="margin-top: 10px;">Mark as Delivered</button>
+          <button type="submit" class="button mark-delivered">Mark as Delivered</button>
         </form>
       {% endif %}
     </div>

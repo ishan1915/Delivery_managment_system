@@ -9,6 +9,9 @@ urlpatterns = [
     path('logout/', views.custom_logout,name='logout'),
     path('signup/', views.signup_customer, name='signup_customer'),
     path('customer_dashboard/', views.customer_dashboard, name='customer_dashboard'),
+    path('edit_profile/',views.edit_customer_profile, name='edit_customer_profile'),
+
+
     path('customer_history/',views.customer_history,name='customer_history'),
     path('order/<int:order_id>/delivered/', views.mark_order_delivered, name='mark_order_delivered'),
 
