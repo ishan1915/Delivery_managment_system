@@ -3,6 +3,7 @@ from . import views
 from django.contrib.auth.views import LogoutView
 
 
+
 urlpatterns = [
     path('login/', views.user_login, name='login'),
     path('logout/', views.custom_logout,name='logout'),
@@ -26,6 +27,8 @@ urlpatterns = [
 
      # Porter
      path('order/<int:order_id>/out_for_delivery/', views.mark_out_for_delivery, name='mark_out_for_delivery'),
+   
+     path('invoice/<int:order_id>/', views.generate_invoice, name='generate_invoice'),
 
 
 

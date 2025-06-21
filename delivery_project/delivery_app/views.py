@@ -6,6 +6,9 @@ from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
 from rolepermissions.checkers import has_permission
+from django.template.loader import render_to_string
+from django.http import HttpResponse
+from weasyprint import HTML
 
 def user_login(request):
     error = ''
@@ -117,3 +120,16 @@ def mark_out_for_delivery(request, order_id):
     order.out_for_delivery = True
     order.save()
     return redirect('porter_dashboard')
+
+
+
+def generate_invoice(request, order_id):
+    order = Order.objects.get(id=order_id)
+    html_string = render_to_string('invoice.html', {'order': order})
+    
+    html = HTML(string=html_string)
+    pdf = html.write_pdf()
+
+    response = HttpResponse(pdf, content_type='application/pdf')
+    response['Content-Disposition'] = f'inline; filename=invoice_order_{order.id}.pdf'
+    return response

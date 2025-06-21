@@ -42,6 +42,12 @@
             <label>Delivered</label>
           </div>
         </div>
+
+        {% if order.id %}
+          <a href="{% url 'generate_invoice' order.id %}" target="_blank" class="button">📄 Download Invoice</a>
+        {% else %}
+          <span class="button" style="background-color: gray;">Invoice Not Available</span>
+        {% endif %}
       </div>
     {% endfor %}
   {% else %}

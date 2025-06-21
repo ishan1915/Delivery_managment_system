@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Invoice</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 30px; }
+        h1 { text-align: center; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background-color: #eee; }
+        .footer { text-align: center; margin-top: 40px; font-size: 12px; color: #777; }
+    </style>
+</head>
+<body>
+    <h1>Delivery Invoice</h1>
+    <p><strong>Customer:</strong> {{ order.customer.user.username }}</p>
+    <p><strong>Product:</strong> {{ order.product_name }}</p>
+    <p><strong>Description:</strong> {{ order.description }}</p>
+    <p><strong>Order Date:</strong> {{ order.created_at }}</p>
+
+    <table>
+        <tr><th>Status</th><th>Completed?</th></tr>
+        <tr><td>Packed</td><td>{{ order.is_packed }}</td></tr>
+        <tr><td>Shipped</td><td>{{ order.is_shipped }}</td></tr>
+        <tr><td>City Received</td><td>{{ order.received_at_city }}</td></tr>
+        <tr><td>Out for Delivery</td><td>{{ order.out_for_delivery }}</td></tr>
+        <tr><td>Delivered</td><td>{{ order.is_delivered }}</td></tr>
+    </table>
+
+    <p class="footer">Thank you for shopping with us!</p>
+</body>
+</html>
