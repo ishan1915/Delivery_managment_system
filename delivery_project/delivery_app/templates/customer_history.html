@@ -7,10 +7,17 @@
   <link rel="stylesheet" href="{% static 'css/customer_dashboard.css' %}">
 </head>
 <body>
-
+<div class="navbar">
+  <div class="navbar-brand">🚚 Delivery Dashboard</div>
+  <div class="navbar-links">
+    <a href="{% url 'create_order' %}">➕ Create Order</a>
+    <a href="{% url 'customer_history' %}">📜 History</a>
+    <a href="{% url 'edit_customer_profile' %}">✏️ Edit Profile</a>
+    <a href="{% url 'logout' %}" class="logout-link">🔒 Logout</a>
+  </div>
+</div>
   <h2>Order History</h2>
-  <a href="{% url 'customer_dashboard' %}" class="button">Back to Dashboard</a>
-  <a href="{% url 'logout' %}" class="button" style="background-color:red;">Logout</a>
+  
 
   {% if orders %}
     {% for order in orders %}

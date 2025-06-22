@@ -1,149 +1,225 @@
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f5f5f5;
-  padding: 30px;
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+body {
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(to right, #dff9fb, #c7ecee);
+  color: #2d3436;
+  padding-bottom: 40px;
+}
+
+/* Navbar */
+.navbar {
+  background: rgba(30, 136, 229, 0.95);
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.navbar-links a {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 30px;
+  font-weight: 500;
+  font-size: 15px;
+  transition: all 0.3s ease-in-out;
+}
+
+.navbar-links a:hover {
+  color: #ffeaa7;
+}
+
+/* Headers */
 h2, h3, h4 {
+  text-align: center;
+  margin-top: 30px;
+  color: #2d3436;
+}
+
+/* Customer Info Card */
+.customer-info {
+  background: rgba(255, 255, 255, 0.85);
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 25px 30px;
+  border-radius: 12px;
+  box-shadow: 0 12px 24px rgba(0,0,0,0.05);
+  backdrop-filter: blur(10px);
+  transition: 0.3s ease;
+}
+
+.customer-info p {
+  margin: 10px 0;
+  font-size: 15px;
   color: #333;
 }
 
-.dashboard-actions {
-  margin-bottom: 20px;
-}
-
-.button {
-  display: inline-block;
-  background-color: #007bff;
-  color: white;
-  padding: 8px 16px;
-  margin: 5px 10px 5px 0;
-  text-decoration: none;
-  border-radius: 5px;
-}
-
-.button:hover {
-  background-color: #0056b3;
-}
-
-.logout {
-  background-color: crimson;
-}
-
-.order-card {
-  background-color: white;
-  padding: 15px;
-  margin: 20px 0;
+.customer-info .button {
+  background: #00cec9;
+  padding: 10px 18px;
   border-radius: 6px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  color: #fff;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 15px;
+  transition: 0.3s;
 }
 
-ul {
-  list-style-type: none;
-  padding: 0;
+.customer-info .button:hover {
+  background: #019592;
 }
 
-ul li {
+/* Order Card */
+.order-card {
+  background: rgba(255, 255, 255, 0.9);
+  max-width: 900px;
+  margin: 25px auto;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+}
+
+.order-card:hover {
+  transform: translateY(-5px);
+}
+
+.order-card p {
+  font-size: 14px;
   margin: 5px 0;
 }
 
-.customer-info {
-  background-color: #fff;
-  border-left: 5px solid #007bff;
-  padding: 15px;
-  margin-bottom: 30px;
+ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 10px 0;
+}
+
+ul li {
+  margin: 6px 0;
+  font-size: 14px;
+}
+
+/* Buttons */
+.button, button {
+  background: #1e88e5;
+  color: #fff;
+  padding: 8px 14px;
+  border: none;
   border-radius: 6px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.button:hover, button:hover {
+  background: #1565c0;
 }
 
 .mark-delivered {
-  background-color: green;
+  background: #d63031;
   margin-top: 10px;
 }
 
 .mark-delivered:hover {
-  background-color: darkgreen;
+  background: #b21f1f;
 }
 
-/* Progress bar styling */
+/* Progress Bar */
 .progress-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 25px;
+  padding: 0 10px;
   position: relative;
-  border-top: 3px solid #ccc;
-  padding: 10px 0;
-  margin-top: 15px;
+  height: 50px;
+}
+
+.progress-container::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: 4px;
+  width: 100%;
+  background-color: #dfe6e9;
+  transform: translateY(-50%);
+  z-index: 0;
 }
 
 .progress-step {
-  flex: 1;
-  text-align: center;
   position: relative;
+  text-align: center;
+  flex: 1;
+  z-index: 1;
 }
 
 .progress-step span {
   display: inline-block;
-  width: 28px;
-  height: 28px;
-  line-height: 28px;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
   border-radius: 50%;
-  background-color: #ccc;
-  color: white;
+  background-color: #b2bec3;
+  color: #fff;
   font-weight: bold;
   position: relative;
-  top: -15px;
   z-index: 2;
+  transition: background 0.3s;
 }
 
 .progress-step.completed span {
-  background-color: green;
+  background-color: #27ae60;
 }
 
 .progress-step label {
   display: block;
-  margin-top: 5px;
-  font-size: 12px;
-  color: #333;
+  margin-top: 6px;
+  font-size: 13px;
+  color: #636e72;
 }
 
+/* Responsive */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+  }
 
-/* NAVBAR */
-.navbar {
-  background-color: #007bff;
-  color: white;
-  padding: 10px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-radius: 6px;
-  margin-bottom: 20px;
-  margin-top: -40px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
+  .navbar-links {
+    margin-top: 10px;
+  }
 
-.navbar a {
-  color: white;
-  margin-left: 20px;
-  text-decoration: none;
-  font-weight: bold;
-}
+  .navbar-links a {
+    display: block;
+    margin: 8px 0;
+  }
 
-.navbar a:hover {
-  text-decoration: underline;
-}
-
-.navbar-brand {
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.logout-link {
-  background-color: crimson;
-  padding: 6px 10px;
-  border-radius: 4px;
-}
-
-.logout-link:hover {
-  background-color: darkred;
+  .customer-info,
+  .order-card {
+    padding: 20px;
+    margin: 15px;
+  }
 }
