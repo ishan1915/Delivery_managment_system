@@ -1,23 +1,71 @@
-<h2>Warehouse Dashboard</h2>
-{% for order in orders %}
-  <p><b>{{ order.product_name }}</b></p>
-  <p>Status: 
-    {% if not order.is_packed %}
-      ❌ Not Packed
-      <form method="post" action="{% url 'mark_packed' order.id %}">{% csrf_token %}
-        <button type="submit">Mark as Packed</button>
-      </form>
-    {% elif not order.is_shipped %}
-      ✅ Packed<br>
-      ❌ Not Shipped
-      <form method="post" action="{% url 'mark_shipped' order.id %}">{% csrf_token %}
-        <button type="submit">Mark as Shipped</button>
-      </form>
-    {% else %}
-      ✅ Packed & Shipped
-    {% endif %}
-  </p>
-  <hr>
-{% empty %}
-  <p>No assigned orders.</p>
-{% endfor %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Warehouse Dashboard</title>
+  <link rel="stylesheet" href="{% static 'css/warehouse_dashboard.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+  <div class="navbar">
+    <div class="navbar-brand">🏭 Warehouse Dashboard</div>
+    <div class="navbar-links">
+      <a href="{% url 'logout' %}">🔒 Logout</a>
+    </div>
+  </div>
+
+
+  {% if wmd %}
+    <div class="customer-info">
+      <h3>👤 Your Details</h3>
+      <p><strong>Name:</strong> {{ wmd.user.username }}</p>  <!--writing wmd.user.username because it is fetching from user table -->
+      <p><strong>Email:</strong> {{ wmd.user.email }}</p>
+      <p><strong>location:</strong> {{ wmd.location}}</p>
+      <p><strong>Warehouse Manages:</strong> {{ wmd.warehouse_name}}</p>
+      <p><strong>Phone:</strong> {{ wmd.phone}}</p>
+      <p><strong>Pincode:</strong> {{ wmd.pincode}}</p>
+      <a href="{% url 'edit_wm_profile'%}" class="button"> <i class="fas fa-user-edit"></i> Edit Profile</a>
+
+
+
+
+
+ 
+  {% endif %}
+
+  <h2>📦 Assigned Orders</h2>
+
+  <div class="orders-wrapper">
+    {% for order in orders %}
+      <div class="order-card">
+        <p><strong>Product:</strong> {{ order.product_name }}</p>
+        <p><strong>Description:</strong> {{ order.description }}</p>
+        <p><strong>Created At:</strong> {{ order.created_at }}</p>
+        <div class="status-section">
+          {% if not order.is_packed %}
+            <p><span class="status-icon ❌">❌</span> Not Packed</p>
+            <form method="post" action="{% url 'mark_packed' order.id %}">
+              {% csrf_token %}
+              <button type="submit">✅ Mark as Packed</button>
+            </form>
+          {% elif not order.is_shipped %}
+            <p><span class="status-icon">✅</span> Packed</p>
+            <p><span class="status-icon ❌">❌</span> Not Shipped</p>
+            <form method="post" action="{% url 'mark_shipped' order.id %}">
+              {% csrf_token %}
+              <button type="submit">🚚 Mark as Shipped</button>
+            </form>
+          {% else %}
+            <p><span class="status-icon">✅</span> Packed & Shipped</p>
+          {% endif %}
+        </div>
+      </div>
+    {% empty %}
+      <p class="no-orders">No assigned orders.</p>
+    {% endfor %}
+  </div>
+
+</body>
+</html>

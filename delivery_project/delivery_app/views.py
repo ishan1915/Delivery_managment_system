@@ -73,6 +73,10 @@ def edit_customer_profile(request):
 
 
 
+
+
+        
+
 @login_required
 def customer_history(request):
     #customer = request.user.customer
@@ -109,8 +113,32 @@ def create_order(request):
 
 def warehouse_manager_dashboard(request):
     wm = request.user.warehousemanager
+    wmd=WarehouseManager.objects.get(user=request.user)
     orders = Order.objects.filter(warehouse_manager=wm)
-    return render(request, 'warehouse_dashboard.html', {'orders': orders})
+    return render(request, 'warehouse_dashboard.html', {'orders': orders,'wmd':wmd})
+
+
+
+
+
+@login_required
+def edit_wm_profile(request):
+    try:
+        wmd = WarehouseManager.objects.get(user=request.user)
+    except WarehouseManager.DoesNotExist:
+        return redirect('warehouse_dashboard')
+
+    if request.method == 'POST':
+        form = WarehouseManagerProfileForm(request.POST, instance=wmd)
+        if form.is_valid():
+            form.save()
+            return redirect('warehouse_manager_dashboard')
+    else:
+        form = WarehouseManagerProfileForm(instance=wmd)
+    
+    return render(request, 'edit_wmdprofile.html', {'form': form})
+
+
 
 def city_manager_dashboard(request):
     cm = request.user.citymanager

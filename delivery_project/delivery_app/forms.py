@@ -1,5 +1,5 @@
 from django import forms
-from .models import User, Customer, Order
+from .models import User, Customer, Order,WarehouseManager
 
 class CustomerSignUpForm(forms.ModelForm):
     address = forms.CharField()
@@ -38,10 +38,23 @@ class OrderForm(forms.ModelForm):
 class CustomerProfileForm(forms.ModelForm):
     class Meta:
         model = Customer
-        fields = ['address', 'phone', 'city', 'pincode']
-        widgets = {
+        fields = [ 'address', 'phone', 'city', 'pincode']
+        widgets = { 
             'address': forms.Textarea(attrs={'rows': 2}),
             'phone': forms.TextInput(attrs={'placeholder': '10-digit phone'}),
             'city': forms.TextInput(),
+            'pincode': forms.TextInput(),
+        }
+
+
+
+class WarehouseManagerProfileForm(forms.ModelForm):
+    class Meta:
+        model = WarehouseManager
+        fields = [ 'location', 'phone', 'warehouse_name', 'pincode']
+        widgets = { 
+            'location': forms.Textarea(attrs={'rows': 2}),
+            'phone': forms.TextInput(attrs={'placeholder': '10-digit phone'}),
+            'warehouse_name': forms.TextInput(),
             'pincode': forms.TextInput(),
         }

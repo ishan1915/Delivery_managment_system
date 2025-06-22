@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(to right, #e0f7fa, #ffffff);
+  color: #2d3436;
+  padding-bottom: 40px;
+}
+
+.navbar {
+  background: #0077b6;
+  color: #fff;
+  padding: 15px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.navbar-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  margin-left: 20px;
+  transition: color 0.3s ease;
+}
+
+.navbar-links a:hover {
+  color: #ffdd59;
+}
+
+h2 {
+  text-align: center;
+  margin-top: 30px;
+  color: #1e3d59;
+}
+
+.orders-wrapper {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 0 15px;
+}
+
+.order-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 25px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease;
+}
+
+.order-card:hover {
+  transform: translateY(-5px);
+}
+
+.order-card p {
+  margin: 10px 0;
+  font-size: 15px;
+}
+
+.status-section {
+  margin-top: 15px;
+}
+
+button {
+  background: #009688;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: #00796b;
+}
+
+.status-icon {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.no-orders {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+  margin-top: 40px;
+}
+.customer-info {
+  background: rgba(255, 255, 255, 0.85);
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 25px 30px;
+  border-radius: 12px;
+  box-shadow: 0 12px 24px rgba(0,0,0,0.05);
+  backdrop-filter: blur(10px);
+  transition: 0.3s ease;
+}
+
+.customer-info p {
+  margin: 10px 0;
+  font-size: 15px;
+  color: #333;
+}
+
+.customer-info .button {
+  background: #00cec9;
+  padding: 10px 18px;
+  border-radius: 6px;
+  color: #fff;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 15px;
+  transition: 0.3s;
+}
+
+.customer-info .button:hover {
+  background: #019592;
+}

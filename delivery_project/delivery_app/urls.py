@@ -18,6 +18,10 @@ urlpatterns = [
     path('order_create/', views.create_order, name='create_order'),
 
     path('warehouse_dashboard/', views.warehouse_manager_dashboard, name='warehouse_manager_dashboard'),
+    path('edit_wmprofile/',views.edit_wm_profile, name='edit_wm_profile'),
+
+
+
     path('city_dashboard/', views.city_manager_dashboard, name='city_manager_dashboard'),
     path('porter_dashboard/', views.porter_dashboard, name='porter_dashboard'),
 

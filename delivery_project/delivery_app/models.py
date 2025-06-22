@@ -37,6 +37,8 @@ class WarehouseManager(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
     warehouse_name=models.CharField(max_length=255)
     location=models.CharField(max_length=255)
+    phone=models.CharField(max_length=10)
+    pincode=models.CharField(max_length=10)  
 
 
     def __str__(self):
