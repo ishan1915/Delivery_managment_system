@@ -46,14 +46,14 @@
         <div class="status-section">
           {% if not order.is_packed %}
             <p><span class="status-icon ❌">❌</span> Not Packed</p>
-            <form method="post" action="{% url 'mark_packed' order.id %}">
+            <form method="post" action="{% url 'mark_packed' order.id %}"  onsubmit="return confirm('Are you sure you want to mark this order as packed?');"> 
               {% csrf_token %}
               <button type="submit">✅ Mark as Packed</button>
             </form>
           {% elif not order.is_shipped %}
             <p><span class="status-icon">✅</span> Packed</p>
             <p><span class="status-icon ❌">❌</span> Not Shipped</p>
-            <form method="post" action="{% url 'mark_shipped' order.id %}">
+            <form method="post" action="{% url 'mark_shipped' order.id %}"  onsubmit="return confirm('Are you sure you want to mark this order as Shipped?');">
               {% csrf_token %}
               <button type="submit">🚚 Mark as Shipped</button>
             </form>

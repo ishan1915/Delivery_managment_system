@@ -129,3 +129,6 @@ AUTH_USER_MODEL='delivery_app.User'
 
 
 ROLEPERMISSIONS_MODULE = 'delivery_app.roles' #for assigning user thier roles
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

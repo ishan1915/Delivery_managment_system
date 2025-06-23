@@ -114,7 +114,7 @@ def create_order(request):
 def warehouse_manager_dashboard(request):
     wm = request.user.warehousemanager
     wmd=WarehouseManager.objects.get(user=request.user)
-    orders = Order.objects.filter(warehouse_manager=wm)
+    orders = Order.objects.filter(warehouse_manager=wm).order_by('-created_at')  
     return render(request, 'warehouse_dashboard.html', {'orders': orders,'wmd':wmd})
 
 
@@ -155,8 +155,7 @@ def porter_dashboard(request):
 # Warehouse Manager updates
 @require_POST
 def mark_packed(request, order_id):
-    if not has_permission(request.user, 'mark_packed'):
-        return HttpResponseForbidden("Not allowed")
+     
     order = get_object_or_404(Order, id=order_id, warehouse_manager=request.user.warehousemanager)
     order.is_packed = True
     order.save()
